@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<array name="Tip1">
+        <item>Did you know it ?</item>
+        <item>icon</item>
+        <item>If you want to do that, well it's easy !</item>
+        <item>Don't bother me with this anymore !</item>
+    </array>
+	<array name="my_Second_Tip">
+        <item>Did you know how ?</item>
+        <item>icon</item>
+        <item>Just do it this way</item>
+        <item>Ok, I get it !</item>
+    </array>
+	<array name="TipNo3">
+        <item>Lorem ipsum</item>
+        <item>icon</item>
+        <item>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</item>
+        <item>Don't mention it...</item>
+    </array>
+</resources>
