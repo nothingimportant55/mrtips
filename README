@@ -1,0 +1,48 @@
+== Welcome
+
+MrTips is a 2-Class library that easily enables you to display help in your Android app.
+
+It's been design and coded by [[Thomas Ezan|tezan.enssat@gmail.com]]
+
+== Getting started
+
+1. Download mrtipsX.Y.jar (in /build folder) and add it to your build path
+OR add mrtips.* package into your project.
+
+2. Add mrtips_array.xml to /value (in /example/res/value) 
+
+3. instanciate a TipsDisplayer passing a string array initialized with the tips id list (cf. MrTipsExample activity in /example/src).
+   
+4. call showTipsDialog on the TipsDisplayer.
+
+
+== Tips declaration
+
+Tips are added to /value/mrtips_array.xml following this pattern :
+
+<ressource>
+  ..
+  <array name="id">
+        <item>Title label (optional, but empty if n/a)</item>
+        <item>image name (without extension)</item>
+        <item>My text (as long as I want because it's added to a scroll view)</item>
+        <item>Don't-show-it label</item>
+  </array>
+  ..
+<ressources>
+
+You can add as many tips as you want. You must keep this items order for each array. 
+
+Title label :
+Title label optional but the first "item" tag is required. So put an empty "item" tag if you don't want any title label.
+
+Images :
+To display an image on the popup, you just need to add the .png-file to /drawable and write the name of the image (without extension). 
+
+
+== Feedback
+
+Feel free to contact me !
+tezan.enssat@gmail.com
+
+

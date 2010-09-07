@@ -17,10 +17,12 @@ public class MrTipsExample extends Activity {
         String[] idArray = {"Tip1","my_Second_Tip","TipNo3"};
         
         // initialize TipsDisplayer with idArrays and display the tips
-        TipsDisplayer myTipsDisplayer = new TipsDisplayer(this,idArray);
-        myTipsDisplayer.showTipsDialog(this);
+        TipsDisplayer mTD = TipsDisplayer.getInstanceOf(this);
+        mTD.setIdArrays(idArray);
+        mTD.showTipsDialog(this);
         
         // END -------------------------------------------------------
-    
+        
+        
     }
 }

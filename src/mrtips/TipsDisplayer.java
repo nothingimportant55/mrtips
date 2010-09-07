@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
@@ -31,12 +32,12 @@ import com.yaupand1.R;
 public class TipsDisplayer implements DialogInterface.OnClickListener {
 	private static final String PREFERENCE_MRTIPS = "mrtips";
 	
-	private Context context;
-	private CheckBox checkBox;
-	private ArrayList<String> idList;
-	
 	private String tipId = "";
 	
+	public static Boolean clicked = false;
+	
+	private CheckBox checkBox;
+	private static ArrayList<String> idList;
 	
 	// Elements to populate the dialog
 	private String titleDialog;
@@ -45,91 +46,106 @@ public class TipsDisplayer implements DialogInterface.OnClickListener {
 	private String checkBoxDialog;
 	
 	
-	public TipsDisplayer(Context context, String[] idArray) {
+	private static TipsDisplayer instance;
+	private Context context;
+	
+	
+	private TipsDisplayer() {
 		super();
-		idList = new ArrayList<String>();
 		
+	}
+	
+	public static TipsDisplayer getInstanceOf(Context mContext){
+		if(instance==null){
+			instance = new TipsDisplayer();
+			idList = new ArrayList<String>();
+		}
+		
+		return instance;
+	}
+	
+	
+	public void setIdArrays(String[] idArray) {
 		for (int i = 0; i < idArray.length; i++) {
 			 idList.add(idArray[i]);
 		}
-		
-		this.context = context;
 	}
-
 	
-	public void showTipsDialog(Context context){
-		
-		Iterator<String> idIterator = idList.iterator();
-		while (idIterator.hasNext()){
-			String currentId = idIterator.next();
-			if(!isHidden(currentId)){
-				tipId = currentId;
-				break;
-			}
-		}
-		
-		Log.d("TipsDisplayer.showTipsDialog()", "currentID = " + tipId);
-		
-			
-		if(tipId!=""){
-			String[] myTipItems = context.getResources().getStringArray(context.getResources().getIdentifier(tipId, "array", context.getPackageName()));
-
-			titleDialog = myTipItems[0];
-			imgDialog = myTipItems[1];
-			textDialog = myTipItems[2];
-			checkBoxDialog = myTipItems[3];
-			
-
-			//LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-			//View layout = inflater.inflate(R.layout.tip_layout, null); 
-			//layout.findViewById(R.id.layout_root);		
-			
-			LinearLayout layout = new LinearLayout(context);
-			layout.setOrientation(LinearLayout.VERTICAL);
-			layout.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT));
 	
-			ScrollView mScrollView = new ScrollView(context);
-			
-			//ImageView image = (ImageView) layout.findViewById(R.id.tip_image);
-			ImageView image = (ImageView) new ImageView(context);
-			image.setImageResource(context.getResources().getIdentifier("drawable/"+imgDialog, null, context.getPackageName()));
-			if(titleDialog!=""){
-				image.setPadding(0, -30, 0, 10);
-			} else {
-				image.setPadding(0, 0, 0, 10);
+	public void showTipsDialog(Context mContext){
+		this.context = mContext; 
+		Log.d("TipsDisplayer.showTipsDialog()", "clicked : " +clicked);
+		if(!clicked){
+			Iterator<String> idIterator = idList.iterator();
+			while (idIterator.hasNext()){
+				String currentId = idIterator.next();
+				if(!isHidden(currentId)){
+					tipId = currentId;
+					break;
+				}
 			}
-			//Gravity imageGravity = new Gravity();
-			//imageGravity.apply(Gravity.CENTER, w, h, container, outRect);
-			layout.addView(image);
+		
+			Log.d("TipsDisplayer.showTipsDialog()", "currentID = " + tipId);
 			
-			//TextView text = (TextView) layout.findViewById(R.id.tip_text);
-			TextView text = (TextView) new TextView(context);
-			text.setText(textDialog);
-			text.setPadding(10, 10, 10, 10);
-			layout.addView(text);
-			
-			
-			//checkBox = (CheckBox) layout.findViewById(R.id.tip_checkbox);
-			checkBox = new CheckBox(context);
-			checkBox.setText(checkBoxDialog);
-			checkBox.setPadding(50, 0, 0, 0);
-			
-			layout.addView(checkBox);
-			mScrollView.addView(layout);
-	        
-			
-			Builder tipDialogBuilder = new AlertDialog.Builder(context);
-	        
-			if(titleDialog!=""){
-				tipDialogBuilder.setTitle(titleDialog);
+			if(tipId!=""){
+				String[] myTipItems = context.getResources().getStringArray(context.getResources().getIdentifier(tipId, "array", context.getPackageName()));
+
+				titleDialog = myTipItems[0];
+				imgDialog = myTipItems[1];
+				textDialog = myTipItems[2];
+				checkBoxDialog = myTipItems[3];
+	
+				//LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+				//View layout = inflater.inflate(R.layout.tip_layout, null); 
+				//layout.findViewById(R.id.layout_root);		
+				
+				LinearLayout layout = new LinearLayout(context);
+				layout.setOrientation(LinearLayout.VERTICAL);
+				layout.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT));
+		
+				ScrollView mScrollView = new ScrollView(context);
+				
+				//ImageView image = (ImageView) layout.findViewById(R.id.tip_image);
+				ImageView image = (ImageView) new ImageView(context);
+				image.setImageResource(context.getResources().getIdentifier("drawable/"+imgDialog, null, context.getPackageName()));
+				if(titleDialog!=""){
+					image.setPadding(0, 0, 0, 0);
+				} else {
+					image.setPadding(0, 0, 0, 0);
+				}
+				//Gravity imageGravity = new Gravity();
+				//imageGravity.apply(Gravity.CENTER, w, h, container, outRect);
+				layout.addView(image);
+				
+				//TextView text = (TextView) layout.findViewById(R.id.tip_text);
+				TextView text = (TextView) new TextView(context);
+				text.setText(textDialog);
+				text.setPadding(10, 10, 10, 10);
+				layout.addView(text);
+				
+				
+				//checkBox = (CheckBox) layout.findViewById(R.id.tip_checkbox);
+				checkBox = new CheckBox(context);
+				checkBox.setText(checkBoxDialog);
+				checkBox.setPadding(50, 0, 0, 0);
+				
+				layout.addView(checkBox);
+				mScrollView.addView(layout);
+		        
+				
+				Builder tipDialogBuilder = new AlertDialog.Builder(context);
+		        
+				if(titleDialog!=""){
+					tipDialogBuilder.setTitle(titleDialog);
+				}
+		        
+		        //tipDialogBuilder.setIcon(context.getResources().getIdentifier("drawable/"+imgDialog, null, context.getPackageName()));
+				tipDialogBuilder.setView(mScrollView);
+				tipDialogBuilder.setCancelable(false);
+				tipDialogBuilder.setPositiveButton("OK", this);
+				
+				tipDialogBuilder.create().show();
 			}
-	        
-	        //tipDialogBuilder.setIcon(context.getResources().getIdentifier("drawable/"+imgDialog, null, context.getPackageName()));
-			tipDialogBuilder.setView(mScrollView);
-			tipDialogBuilder.setCancelable(false);
-			tipDialogBuilder.setPositiveButton(R.string.button_ok, this);
-			
-			tipDialogBuilder.create().show();	
 		}
 		
 	}
@@ -142,6 +158,8 @@ public class TipsDisplayer implements DialogInterface.OnClickListener {
 					Log.i("TipsDisplayer.onClick()", "checked !");
 					setHiddenId(tipId);
 				}
+				
+				clicked = true;
 				dialog.dismiss();
 			break;
 		}
@@ -158,5 +176,6 @@ public class TipsDisplayer implements DialogInterface.OnClickListener {
 		editor.putBoolean(id, true);
 		editor.commit();
 	}
+	
 	
 }
