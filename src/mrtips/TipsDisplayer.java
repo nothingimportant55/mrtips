@@ -127,7 +127,6 @@ public class TipsDisplayer implements DialogInterface.OnClickListener {
 				//checkBox = (CheckBox) layout.findViewById(R.id.tip_checkbox);
 				checkBox = new CheckBox(context);
 				checkBox.setText(checkBoxDialog);
-				checkBox.setPadding(50, 0, 0, 0);
 				
 				layout.addView(checkBox);
 				mScrollView.addView(layout);
