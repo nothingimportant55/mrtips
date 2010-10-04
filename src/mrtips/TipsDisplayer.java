@@ -3,7 +3,6 @@ package mrtips;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.AlertDialog.Builder;
@@ -11,22 +10,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.os.Bundle;
-import android.util.AttributeSet;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
-import android.view.animation.LayoutAnimationController;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.yaupand1.R;
 
 
 public class TipsDisplayer implements DialogInterface.OnClickListener {
@@ -40,10 +31,10 @@ public class TipsDisplayer implements DialogInterface.OnClickListener {
 	private static ArrayList<String> idList;
 	
 	// Elements to populate the dialog
-	private String titleDialog;
+	private String titleDialogRes;
 	private String imgDialog;
-	private String textDialog;
-	private String checkBoxDialog;
+	private String textDialogRes;
+	private String checkBoxDialogRes;
 	
 	
 	private static TipsDisplayer instance;
@@ -90,10 +81,10 @@ public class TipsDisplayer implements DialogInterface.OnClickListener {
 			if(tipId!=""){
 				String[] myTipItems = context.getResources().getStringArray(context.getResources().getIdentifier(tipId, "array", context.getPackageName()));
 
-				titleDialog = myTipItems[0];
+				titleDialogRes = myTipItems[0];
 				imgDialog = myTipItems[1];
-				textDialog = myTipItems[2];
-				checkBoxDialog = myTipItems[3];
+				textDialogRes = myTipItems[2];
+				checkBoxDialogRes = myTipItems[3];
 	
 				//LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 				//View layout = inflater.inflate(R.layout.tip_layout, null); 
@@ -108,7 +99,7 @@ public class TipsDisplayer implements DialogInterface.OnClickListener {
 				//ImageView image = (ImageView) layout.findViewById(R.id.tip_image);
 				ImageView image = (ImageView) new ImageView(context);
 				image.setImageResource(context.getResources().getIdentifier("drawable/"+imgDialog, null, context.getPackageName()));
-				if(titleDialog!=""){
+				if(titleDialogRes!=""){
 					image.setPadding(0, 0, 0, 0);
 				} else {
 					image.setPadding(0, 0, 0, 0);
@@ -119,14 +110,16 @@ public class TipsDisplayer implements DialogInterface.OnClickListener {
 				
 				//TextView text = (TextView) layout.findViewById(R.id.tip_text);
 				TextView text = (TextView) new TextView(context);
-				text.setText(textDialog);
+				String textDialogString = context.getString(context.getResources().getIdentifier("string/"+textDialogRes, null, context.getPackageName()));
+				text.setText(textDialogString);
 				text.setPadding(10, 10, 10, 10);
 				layout.addView(text);
 				
 				
 				//checkBox = (CheckBox) layout.findViewById(R.id.tip_checkbox);
+				String checkBoxDialogString = context.getString(context.getResources().getIdentifier("string/"+checkBoxDialogRes, null, context.getPackageName()));
 				checkBox = new CheckBox(context);
-				checkBox.setText(checkBoxDialog);
+				checkBox.setText(checkBoxDialogString);
 				
 				layout.addView(checkBox);
 				mScrollView.addView(layout);
@@ -134,8 +127,9 @@ public class TipsDisplayer implements DialogInterface.OnClickListener {
 				
 				Builder tipDialogBuilder = new AlertDialog.Builder(context);
 		        
-				if(titleDialog!=""){
-					tipDialogBuilder.setTitle(titleDialog);
+				if(titleDialogRes!=""){
+					String titleDialogString = context.getString(context.getResources().getIdentifier("string/"+titleDialogRes, null, context.getPackageName()));
+					tipDialogBuilder.setTitle(titleDialogString);
 				}
 		        
 		        //tipDialogBuilder.setIcon(context.getResources().getIdentifier("drawable/"+imgDialog, null, context.getPackageName()));
