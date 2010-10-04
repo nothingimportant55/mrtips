@@ -23,15 +23,15 @@ Tips are added to /value/mrtips_array.xml following this pattern :
 <ressource>
   ..
   <array name="id">
-        <item>Title label (optional, but empty if n/a)</item>
+        <item>title label resource id in string.xml file(optional, but empty if n/a)</item>
         <item>image name (without extension)</item>
-        <item>My text (as long as I want because it's added to a scroll view)</item>
-        <item>Don't-show-it label</item>
+        <item>description label resource id string.xml file</item>
+        <item>checkbox label resource id string.xml file</item>
   </array>
   ..
 <ressources>
 
-You can add as many tips as you want. You must keep this items order for each array. 
+You can add as many tips as you want. You must keep these four items order for each array. 
 
 Title label :
 Title label optional but the first "item" tag is required. So put an empty "item" tag if you don't want any title label.
@@ -42,7 +42,7 @@ To display an image on the popup, you just need to add the .png-file to /drawabl
 
 == Feedback
 
-Feel free to contact me !
+Feel free to contact me and give some feedback !
 tezan.enssat@gmail.com
 
 
