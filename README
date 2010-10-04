@@ -40,6 +40,9 @@ Images :
 To display an image on the popup, you just need to add the .png-file to /drawable and write the name of the image (without extension). 
 
 
+For more code example, checkout this gist :
+http://gist.github.com/586709
+
 == Feedback
 
 Feel free to contact me and give some feedback !
